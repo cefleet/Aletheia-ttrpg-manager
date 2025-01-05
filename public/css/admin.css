@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1, h3 {
+    margin-bottom: 10px;
+}
+
+#background-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.thumbnail {
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border 0.3s;
+}
+
+.thumbnail:hover {
+    border: 2px solid #007BFF;
+}
+
+.thumbnail img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.thumbnail.selected {
+    border: 2px solid #28A745;
+}
+
+.background-section, .settings-section {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.settings-section h3, .background-section h3 {
+    margin-top: 0;
+}
+
+.slider-container {
+    margin-top: 10px;
+}
+
+.slider-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.upload-form {
+    padding:10px;
+}

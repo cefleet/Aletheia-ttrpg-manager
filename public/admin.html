@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+    <h1>Admin Panel</h1>
+
+    <div class="background-section">
+        <h3>Background Settings</h3>
+
+        <form id="upload-form" class="upload-form">
+            <label for="background-upload">Upload Image:</label>
+            <input type="file" id="background-upload" name="image" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        <div id="background-list"></div>
+        <div class="slider-container">
+            <label for="background-scale">Background Scale: <span id="scale-value">1.0</span></label>
+            <input type="range" id="background-scale" min="0.1" max="4" step="0.1" value="1">
+        </div>
+        <div class="slider-container">
+            <label for="background-rotation">Background Rotation: <span id="rotation-value">0</span>°</label>
+            <input type="range" id="background-rotation" min="0" max="360" step="15" value="0">
+        </div>
+    </div>
+
+    <div class="settings-section">
+        <h3>Grid Settings</h3>
+        <label>
+            <input type="checkbox" id="grid-toggle"> Toggle Grid
+        </label>
+        <div class="slider-container">
+            <label for="grid-size">Grid Size (w, h): <span id="grid-size-value">1.0</span></label>
+            <input type="range" id="grid-size" min="0.25" max="6" step="0.25" value="1">
+        </div>
+        <div class="slider-container">
+            <label for="grid-type">Grid Type:</label>
+            <select id="grid-type">
+                <option value="rectangle">Rectangle</option>
+                <option value="flat-hex">Flat Hex</option>
+                <option value="pointy-hex">Pointy Hex</option>
+            </select>
+        </div>
+    </div>
+
+    <script type="module" src="./js/admin.js"></script>
+</body>
+</html>
