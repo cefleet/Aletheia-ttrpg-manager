@@ -5,6 +5,9 @@ let appState = {
     overlayImage: null,
     backgroundRotation: 0,
     backgroundScale: 1,
+    currentSprite: null,
+    spriteScale: 1,
+    spriteRotation: 0,
     grid: false,
     gridStyle: 'rgba(255, 255, 255, 0.5)',
     gridType: 'rectangle',
@@ -134,7 +137,7 @@ const renderAppState = async () => {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     if (appState.currentBackground) {
-        await drawTransformedImage(appState.currentBackground);
+        await drawTransformedImage(appState.currentBackground,'background');
     }
 
     if (appState.overlayImage) {
@@ -142,10 +145,16 @@ const renderAppState = async () => {
     }
 
     renderGrid();
+
+    console.log(appState.currentSprite)
+
+    if (appState.currentSprite) {
+        await drawTransformedImage(appState.currentSprite,'sprite');
+    }
 };
 
 // Draw an image with transformations
-const drawTransformedImage = async (imageSrc) => {
+const drawTransformedImage = async (imageSrc, type) => {
     if (!imageSrc) return;
 
     const image = new Image();
@@ -160,8 +169,8 @@ const drawTransformedImage = async (imageSrc) => {
 
     context.save();
     context.translate(centerX, centerY);
-    context.rotate((appState.backgroundRotation || 0) * Math.PI / 180);
-    const scale = appState.backgroundScale || 1;
+    context.rotate((appState[`${type}Rotation`] || 0) * Math.PI / 180);
+    const scale = appState[`${type}Scale`]|| 1;
     context.scale(scale, scale);
 
     const imageAspect = image.width / image.height;

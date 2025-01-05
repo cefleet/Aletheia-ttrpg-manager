@@ -12,22 +12,42 @@
     <div class="background-section">
         <h3>Background Settings</h3>
 
-        <form id="upload-form" class="upload-form">
+        <form id="background-upload-form" class="upload-form">
             <label for="background-upload">Upload Image:</label>
             <input type="file" id="background-upload" name="image" required accept="image/png, image/jpeg">
             <button type="submit">Upload</button>
         </form>
-
+        <div><button id="clear-background">Clear Background</button></div>
         <div id="background-list"></div>
         <div class="slider-container">
-            <label for="background-scale">Background Scale: <span id="scale-value">1.0</span></label>
+            <label for="background-scale">Background Scale: <span id="background-scale-value">1.0</span></label>
             <input type="range" id="background-scale" min="0.1" max="4" step="0.1" value="1">
         </div>
         <div class="slider-container">
-            <label for="background-rotation">Background Rotation: <span id="rotation-value">0</span>°</label>
+            <label for="background-rotation">Background Rotation: <span id="background-rotation-value">0</span>°</label>
             <input type="range" id="background-rotation" min="0" max="360" step="15" value="0">
         </div>
     </div>
+
+    <div class="settings-section">
+        <h3>Sprites</h3>
+        <form id="sprite-upload-form">
+            <label for="sprite-upload">Upload Sprite:</label>
+            <input type="file" id="sprite-upload" name="sprite" required>
+            <button type="submit">Upload</button>
+        </form>
+        <div><button id="clear-sprite">Clear Sprite</button></div>
+        <div id="sprite-list" class="image-list"></div>
+        <div class="slider-container">
+            <label for="sprite-scale">Sprite Scale: <span id="sprite-scale-value">1.0</span></label>
+            <input type="range" id="sprite-scale" min="0.1" max="4" step="0.1" value="1">
+        </div>
+        <div class="slider-container">
+            <label for="sprite-rotation">Sprite Rotation: <span id="sprite-rotation-value">0</span>°</label>
+            <input type="range" id="sprite-rotation" min="0" max="360" step="15" value="0">
+        </div>
+    </div>
+    
 
     <div class="settings-section">
         <h3>Grid Settings</h3>

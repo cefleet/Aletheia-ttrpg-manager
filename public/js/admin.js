@@ -1,5 +1,6 @@
 // admin.js
 import { backgrounds } from './backgrounds.js';
+import {sprites} from "./sprites.js";
 import { grid } from './grid.js';
 
 let appState = {
@@ -38,9 +39,14 @@ const syncUIWithState = () => {
     document.getElementById('grid-size').value = appState.gridSize.w;
     document.getElementById('grid-size-value').textContent = appState.gridSize.w.toFixed(2);
     document.getElementById('background-scale').value = appState.backgroundScale;
-    document.getElementById('scale-value').textContent = appState.backgroundScale.toFixed(1);
+    document.getElementById('background-scale-value').textContent = appState.backgroundScale.toFixed(1);
     document.getElementById('background-rotation').value = appState.backgroundRotation;
-    document.getElementById('rotation-value').textContent = appState.backgroundRotation;
+    document.getElementById('background-rotation-value').textContent = appState.backgroundRotation;
+
+    document.getElementById('sprite-scale').value = appState.backgroundScale;
+    document.getElementById('sprite-scale-value').textContent = appState.backgroundScale.toFixed(1);
+    document.getElementById('sprite-rotation').value = appState.backgroundRotation;
+    document.getElementById('sprite-rotation-value').textContent = appState.backgroundRotation;
 };
 
 // Initialize everything
@@ -48,6 +54,8 @@ const syncUIWithState = () => {
     await fetchAppState();
     backgrounds.loadBackgrounds();
     backgrounds.setupUploadForm(updateAppState, backgrounds.loadFiles);
+    sprites.loadSprites();
+    sprites.setupUploadForm(updateAppState, sprites.loadFiles);
     grid.setupGrid(updateAppState);
 })();
 

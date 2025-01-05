@@ -5,13 +5,14 @@ const CATEGORY = 'backgrounds';
 
 export const backgrounds = (() => {
     const backgroundList = document.getElementById('background-list');
-    const uploadForm = document.getElementById('upload-form');
+    const uploadForm = document.getElementById('background-upload-form');
     const fileInput = document.getElementById('background-upload');
 
     const backgroundScaleSlider = document.getElementById('background-scale');
-    const scaleValueDisplay = document.getElementById('scale-value');
+    const scaleValueDisplay = document.getElementById('background-scale-value');
     const backgroundRotationSlider = document.getElementById('background-rotation');
-    const rotationValueDisplay = document.getElementById('rotation-value');
+    const rotationValueDisplay = document.getElementById('background-rotation-value');
+    const clearBackgroundButton = document.getElementById('clear-background');
 
     const loadBackgrounds = async () => {
         
@@ -58,6 +59,13 @@ export const backgrounds = (() => {
         updateAppState({ backgroundRotation: rotation });
         rotationValueDisplay.textContent = rotation;
     });
+
+    clearBackgroundButton.addEventListener('click', ()=>{
+        updateAppState({currentBackground:null});
+        document.querySelectorAll('.thumbnail').forEach(thumbnail => {
+            thumbnail.classList.toggle('selected', false);
+        });
+    })
 
     return {
         loadBackgrounds,

@@ -18,6 +18,9 @@ const appState = {
     overlayImage: null,
     backgroundRotation: 0,
     backgroundScale: 1,
+    currentSprite: null,
+    spriteScale: 1,
+    spriteRotation: 0,
     grid: false,
     gridStyle: null,
     gridType: 'rectangle', // Default grid type
@@ -97,16 +100,24 @@ app.post('/set-state', express.json(), (req, res) => {
         overlayImage,
         backgroundRotation,
         backgroundScale,
+        currentSprite,
+        spriteRotation,
+        spriteScale,
         grid,
         gridStyle,
         gridType, // Updated naming
         gridSize,
     } = req.body;
+    if (overlayImage !== undefined) appState.overlayImage = overlayImage;
 
     if (currentBackground !== undefined) appState.currentBackground = currentBackground;
-    if (overlayImage !== undefined) appState.overlayImage = overlayImage;
     if (backgroundRotation !== undefined) appState.backgroundRotation = backgroundRotation;
     if (backgroundScale !== undefined) appState.backgroundScale = backgroundScale;
+
+    if (currentSprite !== undefined) appState.currentSprite = currentSprite;
+    if (spriteRotation !== undefined) appState.spriteRotation = spriteRotation;
+    if (spriteScale !== undefined) appState.spriteScale = spriteScale;
+
     if (grid !== undefined) appState.grid = grid;
     if (gridStyle !== undefined) appState.gridStyle = gridStyle;
 
