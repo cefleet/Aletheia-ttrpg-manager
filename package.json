@@ -1,5 +1,5 @@
 {
-  "name": "image-display",
+  "name": "aletheia-game-manager",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -11,6 +11,13 @@
   "description": "",
   "dependencies": {
     "express": "^4.21.2",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "@aws-sdk/client-dynamodb": "^3.726.1",
+    "@aws-sdk/lib-dynamodb": "^3.726.1",
+    "@tensorflow-models/universal-sentence-encoder": "^1.3.3",
+    "@tensorflow/tfjs-node": "^4.22.0",
+    "dotenv": "^16.4.7",
+    "openai": "^4.78.1",
+    "uuid": "^11.0.5"
   }
 }

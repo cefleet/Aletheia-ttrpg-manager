@@ -1,3 +1,10 @@
+const { config } = require('dotenv');
+config();
+const constructContext = require("./create-context-for-gpt.js")
+
+const prepareData = require("./prepare-data.js");
+const { OpenAI } = require("openai");
+
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -5,6 +12,9 @@ const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
+app.use(express.json());
+
+const openai = new OpenAI({ apiKey: process.env.OPEN_AI_KEY});
 
 // Directory for storing uploaded images
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
@@ -36,6 +46,14 @@ app.get('/admin', (req, res) => {
 // Display view
 app.get('/display', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/display.html'));
+});
+
+app.get('/edit-pc-sheet', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/edit-pc-sheet.html'));
+});
+
+app.get('/play-pc-sheet', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/play-pc-sheet.html'));
 });
 
 // Get the current app state
@@ -88,6 +106,37 @@ app.get('/uploads/:category', (req, res) => {
 });
 
 
+app.post("/search", async (req, res) => {
+    try {
+      const { question, game } = req.body;
+  
+      // Embed the user's question
+      const context = await constructContext(question, game);
+  
+      console.log(context);
+  
+      // Query ChatGPT with the context
+      const response = await openai.chat.completions.create({
+        //model: "gpt-3.5-turbo",
+        model:process.env.MODEL_NAME,
+        messages: [
+          { role: "system", content: `You are a highly knowledgeable assistant focused on answering questions about the Table Top RPG called (${game}) that this model has been trained on. Your knowldge does not go beyond the rulebook other then general understanding of languages. If a prompt request to create, generate, or otherwise develop a game component, inform the prompter that this is something you cannot do.` },
+          { role: "user", content: `Here is the context:\n${context}\n\nQuestion: ${question}` },
+        ],
+        max_tokens: 300,
+      });
+  
+      console.log(response.choices[0].message)
+  
+      res.json({ answer: response.choices[0].message });
+  
+     //res.json({ context })
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error processing your request.");
+    }
+  });
+
 // Serve static files
 app.use('/uploads', express.static(UPLOAD_DIR));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -135,4 +184,13 @@ app.post('/set-state', express.json(), (req, res) => {
     res.json(appState);
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+async function startup(){
+
+    await prepareData();
+   
+    
+    app.listen(process.env.PORT, () => console.log(`Server running on http://localhost:${process.env.PORT}`));
+  }
+  
+  startup();
+
