@@ -3,6 +3,8 @@ import { backgrounds } from './backgrounds.js';
 import {sprites} from "./sprites.js";
 import { grid } from './grid.js';
 
+import {question} from "./question.js";
+
 let appState = {
     currentBackground: null,
     overlayBackground: null,
@@ -57,6 +59,7 @@ const syncUIWithState = () => {
     sprites.loadSprites();
     sprites.setupUploadForm(updateAppState, sprites.loadFiles);
     grid.setupGrid(updateAppState);
+    question.setupQuestion();
 })();
 
 export {
